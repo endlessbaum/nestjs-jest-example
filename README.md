@@ -1,5 +1,7 @@
 # nestjs の service の単体テスト方法サンプル
 
+[catsService のテストコード](src/modules/cats/cats.service.spec.ts)
+
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
