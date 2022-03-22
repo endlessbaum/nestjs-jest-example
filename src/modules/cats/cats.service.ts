@@ -1,4 +1,5 @@
 import { HttpService, Injectable } from '@nestjs/common';
+import dayjs from 'dayjs';
 import { map } from 'rxjs/operators';
 import { DogsService } from '../dogs/dogs.service';
 import { CatsAndDocs } from './cats.type';
@@ -50,5 +51,9 @@ export class CatsService {
       )
       .toPromise();
     return fetchedCats;
+  }
+
+  nowtimestamp() {
+    return dayjs().unix();
   }
 }

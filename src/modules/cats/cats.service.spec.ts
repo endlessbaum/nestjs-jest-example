@@ -1,11 +1,13 @@
-import { HttpModule, HttpService } from '@nestjs/common';
+import { HttpService } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { of } from 'rxjs';
 import { AxiosResponse } from 'axios';
-import { DogsModule } from '../dogs/dogs.module';
 import { CatsService } from './cats.service';
 import { DogsService } from '../dogs/dogs.service';
 import { CatsAndDocs } from './cats.type';
+import { CatsModule } from './cats.module';
+import dayjs from 'dayjs';
+import MockDate from 'mockdate';
 
 describe('catsService', () => {
   let catsService: CatsService;
@@ -14,8 +16,7 @@ describe('catsService', () => {
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      imports: [DogsModule, HttpModule],
-      providers: [CatsService],
+      imports: [CatsModule],
     }).compile();
 
     catsService = app.get<CatsService>(CatsService);
@@ -124,6 +125,21 @@ describe('catsService', () => {
           expect(data).toEqual(cats_list);
         }),
       );
+    });
+  });
+  describe('dayjs', () => {
+    it('should return now timestamp', () => {
+      const now = dayjs().unix();
+      console.log(now);
+      expect(catsService.nowtimestamp()).toBe(now);
+    });
+  });
+  describe('dayjs mockdate ', () => {
+    it('should return mock timestamp', () => {
+      MockDate.set('2022-03-22');
+      const now = dayjs().unix();
+      console.log(now);
+      expect(catsService.nowtimestamp()).toBe(now);
     });
   });
 });
